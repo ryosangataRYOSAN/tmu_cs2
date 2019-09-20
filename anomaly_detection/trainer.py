@@ -36,7 +36,7 @@ class Trainer(object):
             raise InsufficientTrainingDataError(data)
         #self.model = OneClassSVM(nu=0.003, kernel='rbf', gamma='auto')
         #self.model = KNeighborsClassifier(n_neighbors=2, algorithm='ball_tree')
-        self.model = GaussianMixture(n_components=5)
+        self.model = GaussianMixture(n_components=5,random_state=20)
         if len(data) < self.model.n_components:
             raise TooMuchComponentError(data,self.model.n_components)
         self.model.fit(data)
