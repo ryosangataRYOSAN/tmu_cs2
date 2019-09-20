@@ -13,7 +13,7 @@ class PredictionResult(dict):
         )
 
     def check_is_anomaly(self, score):
-        if score < 50:
+        if score > 50:
             return True
         else:
             return False

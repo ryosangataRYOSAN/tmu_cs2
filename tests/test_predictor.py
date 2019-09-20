@@ -19,7 +19,7 @@ class TestPredict(unittest.TestCase):
         predictor.load(self.model_filename)
         result = predictor.predict([[1, 2, 3]])
 
-        assert result["is_anomaly"] is True
+        assert result["is_anomaly"] is False
         assert result["is_error"] is False
         print(result["score"])
         assert math.isclose(result["score"], 1.021568e-05, rel_tol=1e-3) is True
