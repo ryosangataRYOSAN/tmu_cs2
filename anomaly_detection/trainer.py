@@ -1,5 +1,6 @@
 import pickle
 from sklearn.mixture import GaussianMixture
+from sklearn.svm import OneClassSVM
 
 
 class InsufficientTrainingDataError(Exception):
@@ -21,9 +22,16 @@ class Trainer(object):
     def train(self, data):
         if len(data) == 0:
             raise InsufficientTrainingDataError(data)
-        self.model = GaussianMixture(n_components=1)
+        self.model = OneClassSVM(nu=0.003, kernel='rbf', gamma='auto')
+        #self.model = GaussianMixture(n_components=1)
         self.model.fit(data)
 
     def save(self, filename):
         with open(filename, mode="wb") as f:
             pickle.dump(self.model, f)
+
+    def SVM_train(self,data):
+        if len(data) == 0:
+            raise InsufficientTrainingDataError(data)
+        self.model = OneClassSVM(nu=0.003, kernel='rbf', gamma='auto')
+        self.data.fit(data)
