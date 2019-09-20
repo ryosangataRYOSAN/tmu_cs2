@@ -1,7 +1,5 @@
 import pickle
 from sklearn.mixture import GaussianMixture
-from sklearn.svm import OneClassSVM
-from sklearn.neighbors import NearestNeighbors
 
 
 class InsufficientTrainingDataError(Exception):
@@ -17,7 +15,7 @@ class InsufficientTrainingDataError(Exception):
 
 
 class TooMuchComponentError(Exception):
-    def __init__(self, data,n_components) -> None:
+    def __init__(self, data, n_components) -> None:
         message = (
             "Number of training data (%d examples) is insufficient to train parameters"
             % len(data)
@@ -27,6 +25,7 @@ class TooMuchComponentError(Exception):
     def error_type(self):
         return "TooMuchComponentError"
 
+
 class Trainer(object):
     def __init__(self):
         self.model = None
@@ -34,19 +33,11 @@ class Trainer(object):
     def train(self, data):
         if len(data) == 0:
             raise InsufficientTrainingDataError(data)
-        #self.model = OneClassSVM(nu=0.003, kernel='rbf', gamma='auto')
-        #self.model = KNeighborsClassifier(n_neighbors=2, algorithm='ball_tree')
-        self.model = GaussianMixture(n_components=5,random_state=20)
+        self.model = GaussianMixture(n_components=5, random_state=20)
         if len(data) < self.model.n_components:
-            raise TooMuchComponentError(data,self.model.n_components)
+            raise TooMuchComponentError(data, self.model.n_components)
         self.model.fit(data)
 
     def save(self, filename):
         with open(filename, mode="wb") as f:
             pickle.dump(self.model, f)
-
-    def SVM_train(self,data):
-        if len(data) == 0:
-            raise InsufficientTrainingDataError(data)
-        self.model = OneClassSVM(nu=0.003, kernel='rbf', gamma='auto')
-        self.data.fit(data)

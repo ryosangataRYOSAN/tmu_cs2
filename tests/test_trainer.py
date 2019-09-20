@@ -1,7 +1,11 @@
 import unittest
 import pickle
-from anomaly_detection.trainer import Trainer, InsufficientTrainingDataError,TooMuchComponentError
-import numpy as np
+from anomaly_detection.trainer import (
+    Trainer,
+    InsufficientTrainingDataError,
+    TooMuchComponentError,
+)
+
 
 class TestTrainer(unittest.TestCase):
     def setUp(self):
@@ -27,5 +31,5 @@ class TestTrainer(unittest.TestCase):
         trainer = Trainer()
         test_data = []
         for i in range(20):
-            test_data.append([i,i+1,i+2])
+            test_data.append([i, i + 1, i + 2])
         trainer.train(test_data)
