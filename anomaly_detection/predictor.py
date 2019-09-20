@@ -1,11 +1,16 @@
 import pickle
-
+import math
 
 class PredictionResult(dict):
-    def __init__(self, is_anomaly, score, is_error, message):
+    def __init__(self, score, is_error, message):
         dict.__init__(
-            self, is_anomaly=is_anomaly, score=score, is_error=is_error, message=message
+            self, is_anomaly=self.check_is_anomaly(score), score=score, is_error=is_error, message=message
         )
+    def check_is_anomaly(self,score):
+        if score < 50:
+            return True
+        else:
+            return False
 
 
 class Predictor(object):
@@ -16,10 +21,12 @@ class Predictor(object):
         with open(filename, mode="rb") as f:
             self.trainer = pickle.load(f)
 
+
     def predict(self, features):
         # trainerを使って賢く分類するようにしましょう
-        #preditions = self.trainer.model.predict(features)
-        #return preditions
+        predition = self.trainer.score(features)
+        predition_score = math.exp(predition)
+
         return PredictionResult(
-            is_anomaly=False, score=0.0, is_error=False, message=None
+            score=predition_score, is_error=False, message=None
         )
