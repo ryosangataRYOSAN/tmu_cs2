@@ -18,6 +18,8 @@ class Predictor(object):
 
     def predict(self, features):
         # trainerを使って賢く分類するようにしましょう
+        #preditions = self.trainer.model.predict(features)
+        #return preditions
         return PredictionResult(
             is_anomaly=False, score=0.0, is_error=False, message=None
         )
