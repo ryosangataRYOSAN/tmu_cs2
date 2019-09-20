@@ -2,7 +2,7 @@ import unittest
 import pickle
 from anomaly_detection.trainer import Trainer
 from anomaly_detection.predictor import Predictor
-
+import numpy as np
 
 class TestPredict(unittest.TestCase):
     def setUp(self):

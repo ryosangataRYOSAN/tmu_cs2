@@ -1,7 +1,7 @@
 import unittest
 import pickle
 from anomaly_detection.trainer import Trainer, InsufficientTrainingDataError
-
+import numpy as np
 
 class TestTrainer(unittest.TestCase):
     def setUp(self):
