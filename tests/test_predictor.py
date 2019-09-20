@@ -3,6 +3,7 @@ import pickle
 from anomaly_detection.trainer import Trainer
 from anomaly_detection.predictor import Predictor
 import numpy as np
+import math
 
 class TestPredict(unittest.TestCase):
     def setUp(self):
@@ -16,11 +17,12 @@ class TestPredict(unittest.TestCase):
     def test_predict(self):
         predictor = Predictor()
         predictor.load(self.model_filename)
-        result = predictor.predict([1, 2, 3])
+        result = predictor.predict([[1, 2, 3]])
 
-        assert result["is_anomaly"] is False
+        assert result["is_anomaly"] is True
         assert result["is_error"] is False
-        assert result["score"] == 0.0
+        print(result["score"])
+        assert math.isclose(result["score"],1.021568e-05,rel_tol = 1e-3) is True
         assert result["message"] is None
 
     # 様々な入力ケースに対してテストを書いていきましょう
